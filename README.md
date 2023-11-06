@@ -34,6 +34,14 @@ with node.js 20.0.8, so we suggest that version.  You can install node.js from [
     set up a proxy from the frontend to the backend. 
 5. Navigate to the localhost path printed above, e.g., `http://localhost:5173`
 
+# Running the game
+
+You should be able to run everything from the frontend. 
+* Set the maximum amount of time you want to give contestants in the input
+  boxes.
+* Press start to start a competition.
+* Press reset to reset the timer and competition.
+
 ## Configuration
 
 The code is very alpha, so consider the following some pointers:
