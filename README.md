@@ -1,4 +1,7 @@
 # Lockpicking Challenge
+
+![](img/lockpicking_game_screenshot.png "Lockpicking game")
+
 Welcome to the Lockpicking challenge.  This game consists of three parts:
 1. A physical set of boards with a mounted deadbolt.
 2. A backend that talks to the boards.
