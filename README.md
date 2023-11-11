@@ -6,6 +6,8 @@ Welcome to the Lockpicking challenge.  This game consists of three parts:
 1. A physical set of boards with a mounted deadbolt.
 2. A backend that talks to the boards.
 3. A frontend UI that runs the contest.
+4. A flat leaderboard.json file that contains your current leaderboard (created
+   if it does not exist).
 
 ## Setup
 
