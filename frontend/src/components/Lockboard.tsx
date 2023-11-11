@@ -4,7 +4,6 @@ export default class Lockboard {
   locked: boolean | undefined;
   solveTime: number | undefined;
   solved: boolean;
-  player: string | undefined;
   numberLockPins: number;
 
   constructor(initializer?: any) {
@@ -14,10 +13,14 @@ export default class Lockboard {
     if (typeof initializer.locked !== 'undefined') this.locked = initializer.locked;
     if (typeof initializer.solveTime !== 'undefined') this.solveTime = initializer.solveTime;
     if (typeof initializer.solved !== 'undefined') this.solved = initializer.solved;
-    if (typeof initializer.player !== 'undefined') this.player = initializer.player;
     if (typeof initializer.numberLockPins !== 'undefined') this.numberLockPins = initializer.numberLockPins;
   }
 }
+
+export interface SolvedBoard extends Lockboard {
+  playerName?: string;
+}
+
 
 export function createLockboards(num: number): Lockboard[] {
   return Array.from({ length: num }, (_, i) => new Lockboard({

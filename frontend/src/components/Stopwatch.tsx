@@ -5,8 +5,9 @@ import {
   Center,
   Heading,
   Input,
-  InputGroup,
   Text,
+  SimpleGrid,
+  GridItem
 } from '@chakra-ui/react';
 
 interface Props {
@@ -43,6 +44,8 @@ const Stopwatch = ({ gameActive, handleTimerEnd, handleStartStop, handleReset }:
           if (prevTime <= 0) {
             // Game over
             handleTimerEnd();
+            setReferenceTime(Date.now());
+            setTime(timeLimit);
 
             return 0;
           }
@@ -104,15 +107,18 @@ const Stopwatch = ({ gameActive, handleTimerEnd, handleStartStop, handleReset }:
           onChange={(e) => updateMinutes(e.target.value)}
           onFocus={() => setEditingMinutes(true)}
           onBlur={() => setEditingMinutes(false)}
-          textAlign='center'
+          textAlign='right'
           outline='none'
           borderRadius='none'
           variant="outline"
           maxLength={2}
           height="1em"
-          width="2em"
+          border='none'
+          minWidth="1em"
+          maxWidth="2em"
+          padding={0}
         />
-        <Text fontSize='6xl' ml={2} mr={2}>:</Text>
+        <Text fontSize='6xl' padding={0}>:</Text>
         <Input
           type='number'
           fontSize='6xl'
@@ -123,12 +129,17 @@ const Stopwatch = ({ gameActive, handleTimerEnd, handleStartStop, handleReset }:
           onChange={(e) => updateSeconds(e.target.value)}
           onFocus={() => setEditingSeconds(true)}
           onBlur={() => setEditingSeconds(false)}
-          textAlign='center'
+          textAlign='left'
           outline='none'
           maxLength={2}
+          minWidth="2em"
+          maxWidth="2em"
           height="1em"
           width="2em"
           borderRadius='none'
+          border='none'
+          padding={0}
+
         />
       </Center>
       <Center>
@@ -142,7 +153,7 @@ const Stopwatch = ({ gameActive, handleTimerEnd, handleStartStop, handleReset }:
             onClick={handleLocalStartStop}
             mt={4}
           >
-            {gameActive ? 'Pause' : 'Start'}
+            {gameActive ? 'End' : 'Start'}
           </Button>
           <Button
             colorScheme='purple'
@@ -155,7 +166,7 @@ const Stopwatch = ({ gameActive, handleTimerEnd, handleStartStop, handleReset }:
           </Button>
         </Center>
       </Box>
-    </Box>
+    </Box >
   );
 };
 

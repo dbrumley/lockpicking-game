@@ -1,0 +1,14 @@
+{
+  "ignore": [
+    ".git",
+    "node_modules",
+    "dist"
+  ],
+  "watch": [
+    "./backend/src"
+  ],
+  "execMap": {
+    "ts": "ts-node"
+  },
+  "ext": "ts"
+}

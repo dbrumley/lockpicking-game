@@ -5,16 +5,13 @@ import {
   flexRender,
   getCoreRowModel,
   useReactTable,
-  RowData,
 } from '@tanstack/react-table';
 
-import {
-  LockIcon,
-  UnlockIcon
-} from '@chakra-ui/icons';
 
 import {
-  FaTrophy
+  FaTrophy,
+  FaLock,
+  FaUnlock
 } from 'react-icons/fa';
 
 import { formatTime } from '../utils';
@@ -31,8 +28,6 @@ import {
 } from '@chakra-ui/react';
 
 import Lockboard from './Lockboard';
-
-
 
 interface Props {
   boards: Lockboard[];
@@ -53,9 +48,10 @@ function LockList({ boards }: Props) {
 
       columnHelper.accessor('locked', {
         header: 'Status',
+        size: 20,
         cell: (context) => {
           const isLocked = context.row.original.locked;
-          return isLocked ? <LockIcon color="red.400" /> : <UnlockIcon color="green.400" />;
+          return isLocked ? <FaLock color="#C0392B" size="25px" /> : <FaUnlock color="#27AE60" size="25px" />;
         },
         meta: {
           type: 'boolean',
@@ -65,7 +61,8 @@ function LockList({ boards }: Props) {
 
 
       columnHelper.accessor('solved', {
-        header: 'Solved',
+        header: 'Solve Time',
+        size: 30,
         cell: (context) => {
           const solved = context.row.original.solved;
           const solveTime = context.row.original.solveTime;
@@ -90,11 +87,12 @@ function LockList({ boards }: Props) {
   return (
     <Box>
       <Heading>Locks</Heading>
-      <Table size="lg" fontSize="18">
+      <Table fontSize="18" className="table-tiny">
         <Thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <Tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
+
                 <Th key={header.id}>
                   {header.isPlaceholder ? null : (
                     flexRender(

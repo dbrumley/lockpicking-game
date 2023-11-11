@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Table,
   Thead,
@@ -7,7 +7,6 @@ import {
   Th,
   Td,
   Input,
-  Box,
   Text,
   Modal,
   ModalOverlay,
@@ -18,18 +17,45 @@ import {
   Button,
   ButtonGroup
 } from '@chakra-ui/react';
-import Lockboard from './Lockboard'; // Ensure this import points to where your Lockboard class or type is defined
+import Lockboard, { SolvedBoard } from '../../../types/Lockboard'; // Ensure this import points to where your Lockboard class or type is defined
 
-interface GameOverProps {
+
+interface Props {
   isOpen: boolean,
   onClose: () => void,
-  lockboards: Lockboard[];
-  setPlayerName: (id: number, name: string) => void;
+  onSave: (solvedBoards: SolvedBoard[]) => void,
+  boards: Lockboard[];
 }
 
-const GameOver: React.FC<GameOverProps> = ({ isOpen, onClose, lockboards, setPlayerName }) => {
-  // Only solved lockboards should be displayed
-  const solvedLockboards = lockboards.filter((lockboard) => lockboard.solved);
+function GameOver({ isOpen, onClose, onSave, boards }: Props) {
+
+  const [solvedBoards, setSolvedBoards] = useState<SolvedBoard[]>([]);
+
+  if (isOpen) {
+    console.log('here');
+  }
+  useEffect(() => {
+    setSolvedBoards(
+      boards
+        .filter(board => board.solved)
+        .sort((a, b) => (a.solveTime || 0) - (b.solveTime || 0))
+        .map(board => ({ ...board, playerName: '' })) // Initialize playerName to an empty string
+    );
+  }, [boards]);
+
+  const updatePlayerName = (id: number, name: string) => {
+    setSolvedBoards(
+      solvedBoards.map(board =>
+        board.id === id ? { ...board, playerName: name } : board
+      )
+    );
+  };
+
+  const handleSave = () => {
+    // You may want to do something with the solvedBoards state here before
+    // calling onSave
+    onSave(solvedBoards);
+  };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -42,23 +68,22 @@ const GameOver: React.FC<GameOverProps> = ({ isOpen, onClose, lockboards, setPla
           <Table variant="simple">
             <Thead>
               <Tr>
-                <Th>ID</Th>
-                <Th>Number</Th>
+                <Th>Place</Th>
+                <Th>Board Number</Th>
                 {/* Add other table headers here if needed */}
                 <Th>Player Name</Th>
               </Tr>
             </Thead>
             <Tbody>
-              {solvedLockboards.map((lockboard) => (
-                <Tr key={lockboard.id}>
-                  <Td>{lockboard.id}</Td>
-                  <Td>{lockboard.number}</Td>
-                  {/* Render other columns here if needed */}
+              {solvedBoards.map((board, index) => (
+                <Tr key={board.id}>
+                  <Td>{index + 1}</Td>
+                  <Td>{board.number}</Td>
                   <Td>
                     <Input
                       type="text"
-                      defaultValue={lockboard.player}
-                      onBlur={(e) => setPlayerName(lockboard.id, e.target.value)}
+                      value={board.playerName}
+                      onChange={(e) => updatePlayerName(board.id, e.target.value)}
                       placeholder="Enter player name"
                       size="sm"
                     />
@@ -70,7 +95,8 @@ const GameOver: React.FC<GameOverProps> = ({ isOpen, onClose, lockboards, setPla
         </ModalBody>
         <ModalFooter>
           <ButtonGroup>
-            <Button colorScheme="purple" onClick={onClose}>Close</Button>
+            <Button colorScheme="purple" onClick={handleSave}>Save</Button>
+            <Button onClick={onClose}>Cancel</Button>
           </ButtonGroup>
         </ModalFooter>
 
