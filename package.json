@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "frontend": "cd frontend && vite",
-    "backend": "cd backend && node build/server.js",
+    "backend": "cd backend && ts-node src/server.ts",
     "dev:front": "cd frontend && vite",
     "build:front": "cd frontend && tsc && vite build",
     "test:front": "cd frontend && tsc && vite test",
