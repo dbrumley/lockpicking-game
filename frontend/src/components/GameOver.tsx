@@ -69,9 +69,9 @@ function GameOver({ isOpen, onClose, onSave, boards }: Props) {
             <Thead>
               <Tr>
                 <Th>Place</Th>
-                <Th>Board Number</Th>
+                <Th>Player</Th>
                 {/* Add other table headers here if needed */}
-                <Th>Player Name</Th>
+                <Th>Name</Th>
               </Tr>
             </Thead>
             <Tbody>

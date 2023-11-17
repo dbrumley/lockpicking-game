@@ -18,7 +18,7 @@ interface Props {
 }
 
 const Stopwatch = ({ gameActive, handleTimerEnd, handleStartStop, handleReset }: Props) => {
-  const DEFAULT_TIME_LIMIT = 3 * 1000; // 5-minute default
+  const DEFAULT_TIME_LIMIT = 300 * 1000; // 5-minute default
   const [timeLimit, setTimeLimit] = useState(DEFAULT_TIME_LIMIT);
   const [time, setTime] = useState(DEFAULT_TIME_LIMIT);
   const [referenceTime, setReferenceTime] = useState(Date.now());

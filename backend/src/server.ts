@@ -27,10 +27,10 @@ let pins: Pin[];
 
 let gameActive: boolean = false;
 let gameStartTime: number | null = null;
-const NUM_LOCKS: number = 5;
+const NUM_LOCKS: number = 6;
 
 const board: Board = new Board({
-  port: "/dev/cu.usbmodem111301", // Update the port according to your setup
+  port: "/dev/cu.usbmodem2101", // Update the port according to your setup
   repl: false
 });
 
